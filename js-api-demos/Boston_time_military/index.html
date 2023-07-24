@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+		
+		<title>Boston real-time - military symbols</title>
+
+		<link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css" />
+		<link rel="stylesheet" href="custom.css" />
+		
+		<script src="https://js.arcgis.com/4.26/"></script>
+		<script src="main.js"></script>
+	</head>
+
+	<body>
+		<div id="viewDiv"></div>
+		<div id="controlDiv" style="height: 32px; width: 32px;">
+			<input class="esri-component esri-widget--button esri-widget esri-interactive"
+				style="border: none; box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 2px; font-family: 'CalciteWebCoreIcons';"
+				type="button"
+				id="spin-btn"
+				value="&#xe66e;"
+		/></div>  
+		<div id="options" class="esri-widget" style="width: 300px;">
+			<div id="connectionStatus" class="esri-widget">Disconnected</div>
+			<p>Select symbology options:</p>
+			<div>
+				<label for="sym-frame">Frame</label>
+				<select id="sym-frame">
+					<option value="ON" selected>On</option>
+					<option value="OFF">Off</option>
+				</select>
+			</div>
+			<div>
+				<label for="sym-fill">Fill</label>
+				<select id="sym-fill">
+					<option value="ON" selected>On</option>
+					<option value="OFF">Off</option>
+				</select>
+			</div>
+			<div>
+				<label for="sym-icon">Icon</label>
+				<select id="sym-icon">
+					<option value="ON" selected>On</option>
+					<option value="OFF">Off</option>
+				</select>
+			</div>
+			<div>
+				<label for="sym-text">Text</label>
+				<select id="sym-text">
+					<option value="ON" selected>On</option>
+					<option value="OFF">Off</option>
+				</select>
+			</div>
+			<div>
+				<label for="sym-colors">Colors</label>
+				<select id="sym-colors">
+					<option value="LIGHT" selected>Light</option>
+					<option value="MEDIUM">Medium</option>
+					<option value="DARK">Dark</option>
+				</select>
+			</div>
+			<div>
+				<label for="sym-condition">Condition</label>
+				<select id="sym-condition">
+					<option value="PRIMARY" selected>Primary</option>
+					<option value="ALTERNATE">Alternate</option>
+				</select>
+			</div>
+			<div>
+				<label for="sym-amplifiers">Amplifiers</label>
+				<select id="sym-amplifiers">
+					<option value="ON" selected>On</option>
+					<option value="OFF">Off</option>
+				</select>
+			</div>
+		</div>
+
+	</body>
+</html>
