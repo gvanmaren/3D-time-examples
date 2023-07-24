@@ -36,7 +36,7 @@ require(
 	var streamLayerView;
 	
 	var map = new Map({
-			ground: "world-topobathymetry",
+		ground: "world-topobathymetry",
 		basemap: "topo-vector"
 	});
 			
@@ -46,28 +46,28 @@ require(
 			qualityProfile: "high",
 			environment: {
 				lighting: {
-						directShadowsEnabled: true,
-						ambientOcclusionEnabled: true
+					directShadowsEnabled: true,
+					ambientOcclusionEnabled: true
 				},
 				atmosphere: {
-						quality: "high"
+					quality: "high"
 				}
 			},
-	camera: {
-		position: {
-			x: -121.8830184,
-			y: 36.4277574,
-			z: 4000
-		}, 
-		heading: 0,
-		tilt: 75
-	},
-	highlightOptions: {
-		color: [255, 255, 255, 0.25],
-		haloColor: [255,0,0,1],
-		//fillOpacity: 0.75,
-		haloOpacity: 0.55
-	}
+		camera: {
+			position: {
+				x: -121.8830184,
+				y: 36.4277574,
+				z: 4000
+			}, 
+			heading: 0,
+			tilt: 75
+		},
+		highlightOptions: {
+			color: [255, 255, 255, 0.25],
+			haloColor: [255,0,0,1],
+			//fillOpacity: 0.75,
+			haloOpacity: 0.55
+		}
 	});
 		
 	// setup dictionary renderer for land units based on 2525c style
