@@ -3,6 +3,7 @@ require(
 		"esri/config",
 		"esri/portal/Portal",
 		"esri/Map",
+		"esri/WebScene",
 		"esri/views/SceneView",
 		"esri/layers/FeatureLayer",
 		"esri/layers/StreamLayer",
@@ -19,6 +20,7 @@ require(
 		esriConfig,
 		Portal,
 		Map,
+		WebScene,
 		SceneView,
 		FeatureLayer,
 		StreamLayer,
@@ -35,9 +37,16 @@ require(
 { 
 	var streamLayerView;
 	
-	var map = new Map({
-		ground: "world-topobathymetry",
-		basemap: "topo-vector"
+//	var map = new Map({
+//		ground: "world-topobathymetry",
+//		basemap: "topo-vector"
+//	});
+
+	// Load a webscene
+	var map = new WebScene({
+		portalItem: {
+			id: "0ccd2a0607564f92989daef77c911383"
+		}
 	});
 			
 	var sceneView = new SceneView({
@@ -46,20 +55,23 @@ require(
 			qualityProfile: "high",
 			environment: {
 				lighting: {
-					directShadowsEnabled: true,
-					ambientOcclusionEnabled: true
+					directShadowsEnabled: true
 				},
 				atmosphere: {
 					quality: "high"
+				},
+				weather: {
+					type: "cloudy",
+					cloudCover: 0.3
 				}
 			},
 		camera: {
 			position: {
-				x: -121.8830184,
-				y: 36.4277574,
-				z: 4000
-			}, 
-			heading: 0,
+				x: -71.018712,
+				y: 42.353452,
+				z: 1000
+			},
+			heading: 270,
 			tilt: 75
 		},
 		highlightOptions: {
@@ -187,7 +199,8 @@ require(
 
 	// configure the Land Units stream layer i nBoston
 	Boston_friendlyLandStreamLayer = new StreamLayer({
-		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/N_track_test2000/StreamServer",
+		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/BN_tracks/StreamServer",
+//		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/N_track_test2000/StreamServer",
 		title: "Friendly Land Tracks in Boston", 
 		outFields: ["*"],
 		elevationInfo: {
@@ -198,52 +211,8 @@ require(
 		renderer: dictRenderer2525C
 	});
 
-	// configure the Land Units stream layer
-    friendlyLandStreamLayer = new StreamLayer({
- 		url: "https://defenserealtime.esri.com:6443/arcgis/rest/services/monterey_landtracks_stream-service-out/StreamServer",
-        title: "Friendly Land Tracks", 
-        outFields: ["*"],
-        elevationInfo: {
-			mode: "relative-to-ground"  // if the data doesn't have a Z-value and `relative-to-ground` is used for placement, a leader line is applied
-  		},
-        popupTemplate: popupTemplateUnits,
-		renderer: dictRenderer2525C
-    });
-
-	// configure the Air Tracks stream layer
-    friendlyAirStreamLayer = new StreamLayer({
- 		url: "https://defenserealtime.esri.com:6443/arcgis/rest/services/monterey_airtracks_stream-service-out/StreamServer",
-        title: "Friendly Air Tracks", 
-        outFields: ["*"],
-        elevationInfo: {
-            mode: "absolute-height",	// air tracks have a z-value, so we want to use absolute-height
-            offset: 300					// but we add an offset so that it appears at a higher altitude than the land units which have leader lines
-  		},
-        popupTemplate: popupTemplateAirUnits,
- 		renderer: dictRenderer2525C_air	// remember to use the specific dictionary renderer configured for air tracks
-    });
-
-	// configure the CoT (cursor on target) stream layer
-    cotStreamLayer = new StreamLayer({
- 		url: "https://defenserealtime.esri.com:6443/arcgis/rest/services/monterey_cot_stream-service-out/StreamServer",
-        title: "CoT Reports", 
-        outFields: ["*"],
-        elevationInfo: {
-			//mode: "relative-to-ground",	// this data does have a Z value, so `relative-to-ground` will place it relative to the surface using the z value and no leader line
-			mode: "on-the-ground",	// drape the symbols on the ground
-            featureExpressionInfo: {	// however I don't want to use the data's z-value, so I can set an expression for it to be zero
-    			expression: "0",
-    		},
-			offset: 15					// and then set an offset so that the billboarded symbol appears fully above ground
-  		},
-        renderer: dictRenderer2525C_cot
-    });
-
-	// add the 3 layers to the map
+	// add the stream layers to the map
 	map.add(Boston_friendlyLandStreamLayer);
-	map.add(friendlyLandStreamLayer);
-	map.add(friendlyAirStreamLayer);
-	map.add(cotStreamLayer);
 
 	// this is a widget that calls rotateView to spin the scene on an axis
 	var spinning = false;
@@ -253,9 +222,9 @@ require(
 			sceneView.goTo(
 				{
 					position: {
-						x: -121.8830184-((Math.sin((angle/180)*Math.PI))/5),
-						y: 36.4277574+((1-Math.cos((angle/180)*Math.PI))/5),
-						z: 4000,
+						x: -71.018712-((Math.sin((angle/180)*Math.PI))/5),
+						y: 42.353452+((1-Math.cos((angle/180)*Math.PI))/5),
+						z: 1000,
 						spatialReference: {
 							wkid: 4326
 						}
@@ -287,7 +256,7 @@ require(
 			condition = document.getElementById("sym-condition").value;
 			amplifiers = document.getElementById("sym-amplifiers").value;
 		}
-		friendlyLandStreamLayer.renderer = adjustedDictionaryRenderer; //we only do this for the land units, to show the difference
+		Boston_friendlyLandStreamLayer.renderer = adjustedDictionaryRenderer; //we only do this for the land units, to show the difference
 		//friendlyAirStreamLayer.renderer = adjustedDictionaryRenderer;
 		//cotStreamLayer.renderer = adjustedDictionaryRenderer;
 	}		
@@ -346,7 +315,7 @@ require(
 	sceneView.ui.add(connectionStatus, "top-right");
 	connectionStatus.style.display = "inline-flex";
 
-	sceneView.whenLayerView(friendlyLandStreamLayer).then(function(layerView) {
+	sceneView.whenLayerView(Boston_friendlyLandStreamLayer).then(function(layerView) {
 		streamLayerView = layerView;
 
 		if (layerView.connectionStatus === "connected") {
@@ -361,7 +330,7 @@ require(
 			}
 		});
 		
-		const highlightQuery = friendlyLandStreamLayer.createQuery();
+		const highlightQuery = Boston_friendlyLandStreamLayer.createQuery();
 
 		// monitor the land units stream for a status911 change to highlight any alerted units
 		streamLayerView.on("data-received", (event) => {
