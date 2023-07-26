@@ -205,7 +205,7 @@ require(
 		outFields: ["*"],
 		elevationInfo: {
 			mode: "relative-to-ground",  // if the data doesn't have a Z-value and `relative-to-ground` is used for placement, a leader line is applied
-			offset: 10
+			offset: 2
 		},
 		popupTemplate: popupTemplateUnits,
 		renderer: dictRenderer2525C
