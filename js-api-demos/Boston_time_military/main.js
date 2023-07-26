@@ -142,8 +142,8 @@ require(
     });
 
 	// setup the popup template to only display a few of the attributes
-	var popupTemplateUnits = {
-		title: "Friendly Land Units: {uniquedesignation}",
+	var popupTemplateHostileUnits = {
+		title: "Hostile Land Units: {uniquedesignation}",
 		content: [
 			{
 				type: "fields",
@@ -198,21 +198,21 @@ require(
 	};
 
 	// configure the Land Units stream layer i nBoston
-	Boston_friendlyLandStreamLayer = new StreamLayer({
-		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/BN_tracks/StreamServer",
+	Boston_hostileLandStreamLayer = new StreamLayer({
+		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/B_N_track4/StreamServer",
 //		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/N_track_test2000/StreamServer",
-		title: "Friendly Land Tracks in Boston", 
+		title: "Hostile Land Tracks in Boston", 
 		outFields: ["*"],
 		elevationInfo: {
 			mode: "relative-to-ground",  // if the data doesn't have a Z-value and `relative-to-ground` is used for placement, a leader line is applied
 			offset: 2
 		},
-		popupTemplate: popupTemplateUnits,
+		popupTemplate: popupTemplateHostileUnits,
 		renderer: dictRenderer2525C
 	});
 
 	// add the stream layers to the map
-	map.add(Boston_friendlyLandStreamLayer);
+	map.add(Boston_hostileLandStreamLayer);
 
 	// this is a widget that calls rotateView to spin the scene on an axis
 	var spinning = false;
@@ -256,7 +256,7 @@ require(
 			condition = document.getElementById("sym-condition").value;
 			amplifiers = document.getElementById("sym-amplifiers").value;
 		}
-		Boston_friendlyLandStreamLayer.renderer = adjustedDictionaryRenderer; //we only do this for the land units, to show the difference
+		Boston_hostileLandStreamLayer.renderer = adjustedDictionaryRenderer; //we only do this for the land units, to show the difference
 		//friendlyAirStreamLayer.renderer = adjustedDictionaryRenderer;
 		//cotStreamLayer.renderer = adjustedDictionaryRenderer;
 	}		
@@ -315,7 +315,7 @@ require(
 	sceneView.ui.add(connectionStatus, "top-right");
 	connectionStatus.style.display = "inline-flex";
 
-	sceneView.whenLayerView(Boston_friendlyLandStreamLayer).then(function(layerView) {
+	sceneView.whenLayerView(Boston_hostileLandStreamLayer).then(function(layerView) {
 		streamLayerView = layerView;
 
 		if (layerView.connectionStatus === "connected") {
@@ -330,7 +330,7 @@ require(
 			}
 		});
 		
-		const highlightQuery = Boston_friendlyLandStreamLayer.createQuery();
+		const highlightQuery = Boston_hostileLandStreamLayer.createQuery();
 
 		// monitor the land units stream for a status911 change to highlight any alerted units
 		streamLayerView.on("data-received", (event) => {
