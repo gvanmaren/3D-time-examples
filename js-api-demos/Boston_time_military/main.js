@@ -45,7 +45,7 @@ require(
 	// Load a webscene
 	var map = new WebScene({
 		portalItem: {
-			id: "0ccd2a0607564f92989daef77c911383"
+			id: "2f67306fd2b646bba4e431155ce4482c"
 		}
 	});
 			
@@ -199,12 +199,12 @@ require(
 
 	// configure the Land Units stream layer i nBoston
 	Boston_hostileLandStreamLayer = new StreamLayer({
-		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/BNM_tracks/StreamServer",
-//		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/N_track_test2000/StreamServer",
+		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/BENM_tracks/StreamServer",
+//		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/BNM_tracks/StreamServer",
 		title: "Hostile Land Tracks in Boston", 
 		outFields: ["*"],
 		elevationInfo: {
-			mode: "relative-to-ground",  // if the data doesn't have a Z-value and `relative-to-ground` is used for placement, a leader line is applied
+			mode: "absolute-height",  // if the data doesn't have a Z-value and `relative-to-ground` is used for placement, a leader line is applied
 			offset: 2
 		},
 		popupTemplate: popupTemplateHostileUnits,
