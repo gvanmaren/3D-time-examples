@@ -199,7 +199,7 @@ require(
 
 	// configure the Land Units stream layer i nBoston
 	Boston_hostileLandStreamLayer = new StreamLayer({
-		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/B_N_track4/StreamServer",
+		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/BNM_tracks/StreamServer",
 //		url: "https://us-iotqa.arcgis.com/qausa2verify/xfjp7xjnunpc0rzs/streams/arcgis/rest/services/N_track_test2000/StreamServer",
 		title: "Hostile Land Tracks in Boston", 
 		outFields: ["*"],
