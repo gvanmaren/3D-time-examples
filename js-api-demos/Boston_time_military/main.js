@@ -15,7 +15,9 @@ require(
 		"esri/widgets/Fullscreen",
 		"esri/widgets/Feature",
 		"esri/layers/support/FeatureEffect",
-		"esri/layers/support/FeatureFilter"
+		"esri/layers/support/FeatureFilter",
+		"esri/identity/IdentityManager",
+    "esri/identity/OAuthInfo"
 	], function(
 		esriConfig,
 		Portal,
@@ -32,11 +34,25 @@ require(
 		Fullscreen,
 		Feature,
 		FeatureEffect,
-		FeatureFilter
+		FeatureFilter,
+		IdentityManager,
+		OAuthInfo
 	) 
 { 
 	var streamLayerView;
+
+	IdentityManager.registerOAuthInfos([
+		new OAuthInfo({
+			appId: "KojZjH6glligLidj",
+			popup: true,
+			popupCallbackUrl: `${document.location.origin}${document.location.pathname}oauth-callback-api.html`,
+		}),
+	]);
 	
+	window.setOAuthResponseHash = (responseHash) => {
+		IdentityManager.setOAuthResponseHash(responseHash);
+	};
+
 //	var map = new Map({
 //		ground: "world-topobathymetry",
 //		basemap: "topo-vector"
