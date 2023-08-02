@@ -41,9 +41,12 @@ require(
 { 
 	var streamLayerView;
 
+
+
 	IdentityManager.registerOAuthInfos([
 		new OAuthInfo({
-			appId: "KojZjH6glligLidj",
+			portalUrl: "https://velocityqaperf.mapsqa.arcgis.com/",
+			appId: "EtoYFfpj5yjOMYyY",
 			popup: true,
 			popupCallbackUrl: `${document.location.origin}${document.location.pathname}oauth-callback-api.html`,
 		}),
