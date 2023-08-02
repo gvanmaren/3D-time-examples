@@ -42,13 +42,16 @@ require(
 	var streamLayerView;
 
 
+	const pathname = document.location.pathname;
+	const directory = pathname.substring(0, pathname.lastIndexOf('/'));
+	const popupCallbackUrl = `${document.location.origin}${directory}/oauth-callback-api.html`;
 
 	IdentityManager.registerOAuthInfos([
 		new OAuthInfo({
 			portalUrl: "https://velocityqaperf.mapsqa.arcgis.com/",
 			appId: "EtoYFfpj5yjOMYyY",
 			popup: true,
-			popupCallbackUrl: `${document.location.origin}${document.location.pathname}oauth-callback-api.html`,
+			popupCallbackUrl,
 		}),
 	]);
 	
