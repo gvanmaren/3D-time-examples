@@ -15,7 +15,9 @@ require(
 		"esri/widgets/Fullscreen",
 		"esri/widgets/Feature",
 		"esri/layers/support/FeatureEffect",
-		"esri/layers/support/FeatureFilter"
+		"esri/layers/support/FeatureFilter",
+		"esri/identity/IdentityManager",
+    "esri/identity/OAuthInfo"
 	], function(
 		esriConfig,
 		Portal,
@@ -32,11 +34,31 @@ require(
 		Fullscreen,
 		Feature,
 		FeatureEffect,
-		FeatureFilter
+		FeatureFilter,
+		IdentityManager,
+		OAuthInfo
 	) 
 { 
 	var streamLayerView;
+
+
+	const pathname = document.location.pathname;
+	const directory = pathname.substring(0, pathname.lastIndexOf('/'));
+	const popupCallbackUrl = `${document.location.origin}${directory}/oauth-callback-api.html`;
+
+	IdentityManager.registerOAuthInfos([
+		new OAuthInfo({
+			portalUrl: "https://velocityqaperf.mapsqa.arcgis.com/",
+			appId: "EtoYFfpj5yjOMYyY",
+			popup: true,
+			popupCallbackUrl,
+		}),
+	]);
 	
+	window.setOAuthResponseHash = (responseHash) => {
+		IdentityManager.setOAuthResponseHash(responseHash);
+	};
+
 //	var map = new Map({
 //		ground: "world-topobathymetry",
 //		basemap: "topo-vector"
